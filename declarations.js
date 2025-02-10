@@ -1,4 +1,4 @@
-const escapeStr = "let's go"
+const escapeStr = "let's \" \/ \` go"
 const arr = [4, '2']
 const obj = {
     str : "hello",
