@@ -1,4 +1,4 @@
-orbits = {
+const orbits = {
     earth : 1,
     mercury : 0.2408467,
     venus : 0.61519726,
