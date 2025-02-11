@@ -10,5 +10,7 @@ const orbits = {
 }
 
 const dogYears = (planet, age) => {
-    ((age / 31,557,600) /  orbits[planet]) * 7
+    return ((age / 31557600) *  orbits[planet]) * 7
 }
+
+console.log(dogYears('earth', 1000000000));
