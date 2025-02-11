@@ -10,7 +10,7 @@ const orbits = {
 }
 
 const dogYears = (planet, age) => {
-    const result = ((age / 31557600) * orbits[planet]) * 7;
+    const result = ((age / 31557600) / orbits[planet]) * 7;
     return Math.round(result * 100) / 100; 
 }
 
