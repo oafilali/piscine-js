@@ -1,27 +1,53 @@
 const multiply = (a, b) => {
-    let count = 0
-    let result = 0
-    while (count < b) {
-        result += a
-        count++
+    let count = 0;
+    let sign = 0;
+    let result = 0;
+    if (a < 0) {
+        a = -a;
+        sign++;
     }
-    return result
+    if (b < 0) {
+        b = -b;
+        sign++;
+    }
+    while (count < b) {
+        result += a;
+        count++;
+    }
+    return sign == 1 ? -result : result;
 }
 
 const divide = (a, b) => {
-    let count = 0
-    let result = a
-    while (result > b) {
-        result = result - b
-        count++
+    let count = 0;
+    let sign = 0;
+    let result = a;
+    if (a < 0) {
+        result = -a;
+        sign++;
     }
-    return count
+    if (b < 0) {
+        b = -b;
+        sign++;
+    }
+    while (result >= b) {
+        result -= b;
+        count++;
+    }
+    return sign == 1 ? -count : count;
 }
 
 const modulo = (a, b) => {
-    let result = a
-    while (result > b) {
-        result = result - b
+    let sign = 0;
+    let result = a;
+    if (a < 0) {
+        result = -a;
+        sign++;
     }
-    return result
+    if (b < 0) {
+        b = -b;
+    }
+    while (result >= b) {
+        result -= b;
+    }
+    return sign == 1 ? -result : result;
 }
