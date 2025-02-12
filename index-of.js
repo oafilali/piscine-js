@@ -7,8 +7,8 @@ const indexOf = (arr, element, index) => {
     return -1
 }
 
-const lastIndexOf = (arr, element, index = arr.length - 1) => {
-    for (let i = index; i >= 0; i--) {
+const lastIndexOf = (arr, element, index) => {
+    for (let i = index || arr.length - 1; i >= 0; i--) {
         if (arr[i] === element) {
             return i;
         }
