@@ -1,15 +1,18 @@
 const slice = (arg, startIndex, endIndex) => {
+    startIndex = startIndex || 0;
+    endIndex = endIndex === undefined ? arg.length : endIndex;
+
     if (Array.isArray(arg)) {
-        let result = []
-        for (let i = startIndex || 0; i < endIndex || arg.length; i++) {
-            result.push(arg[i])
+        let result = [];
+        for (let i = startIndex; i < endIndex; i++) {
+            result.push(arg[i]);
         }
-        return result
+        return result;
     } else if (typeof arg === "string") {
-        let result = ""
-        for (let i = startIndex || 0; i < endIndex || arg.length; i++) {
-            result += arg[i]
+        let result = "";
+        for (let i = startIndex; i < endIndex; i++) {
+            result += arg[i];
         }
-        return result
+        return result;
     }
 }
