@@ -1,1 +1,11 @@
-const num = (arg) => (typeof arg === Number ? true : false)
+const num = (arg) => (typeof arg === "number" ? true : false);
+const nan = (arg) => (Number.isNaN(arg) ? true : false);
+const str = (arg) => (typeof arg === "string" ? true : false);
+const bool = (arg) => (typeof arg === "boolean" ? true : false);
+const undef = (arg) => (arg === undefined ? true : false);
+const def = (arg) => (arg !== undefined ? true : false);
+const arr = (arg) => (Array.isArray(arg) ? true : false);
+const obj = (arg) => (arg !== null && typeof arg === "object" && !Array.isArray(arg) ? true : false);
+const fun = (arg) => (typeof arg === "function" ? true : false);
+const truthy = (arg) => (!!arg ? true : false);
+const falsy = (arg) => (!arg ? true : false);
