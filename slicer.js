@@ -5,7 +5,7 @@ const slice = (arg, startIndex, endIndex) => {
             result.push(arg[i])
         }
         return result
-    } else if (typeof arg === String) {
+    } else if (typeof arg === "string") {
         let result = ""
         for (let i = startIndex || 0; i < endIndex || arg.length; i++) {
             result += arg[i]
