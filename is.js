@@ -1,4 +1,4 @@
-const num = (arg) => (typeof arg === "number" ? true : false);
+const num = (arg) => (typeof arg === "number" && !Number.isNaN(arg) ? true : false);
 const nan = (arg) => (Number.isNaN(arg) ? true : false);
 const str = (arg) => (typeof arg === "string" ? true : false);
 const bool = (arg) => (typeof arg === "boolean" ? true : false);
