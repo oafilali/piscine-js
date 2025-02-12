@@ -7,14 +7,13 @@ const indexOf = (arr, element, index) => {
     return -1
 }
 
-const lastIndexOf = (arr, element, index) => {
-    let lastindex = -1
-    for (let i = index  || 0; i < arr.length; i++) {
+const lastIndexOf = (arr, element, index = arr.length - 1) => {
+    for (let i = index; i >= 0; i--) {
         if (arr[i] === element) {
-            lastindex = i
+            return i;
         }
     }
-    return lastindex
+    return -1;
 }
 
 const includes = (arr, element, index) => {
