@@ -1,7 +1,15 @@
-const slice = (arr, startIndex, endIndex) => {
-    let result = []
-    for (let i = startIndex || 0; i < endIndex || arr.lenght; i++) {
-        result.push(arr[i])
+const slice = (arg, startIndex, endIndex) => {
+    if (Array.isArray(arg)) {
+        let result = []
+        for (let i = startIndex || 0; i < endIndex || arg.length; i++) {
+            result.push(arg[i])
+        }
+        return result
+    } else if (typeof arg === String) {
+        let result = ""
+        for (let i = startIndex || 0; i < endIndex || arg.length; i++) {
+            result += arg[i]
+        }
+        return result
     }
-    return result
 }
