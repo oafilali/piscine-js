@@ -1,12 +1,12 @@
 const slice = (arg, startIndex, endIndex) => {
     if (endIndex === undefined) {
-        endIndex = input.length;
+        endIndex = arg.length;
     }
     if (startIndex < 0) {
-        startIndex = input.length + startIndex;
+        startIndex = arg.length + startIndex;
     }
     if (endIndex < 0) {
-        endIndex = input.length + endIndex;
+        endIndex = arg.length + endIndex;
     }
     if (Array.isArray(arg)) {
         let result = [];
