@@ -1,17 +1,28 @@
 const split = (arg, separator) => {
     let subStr = "";
     let result = [];
-    let sepLen = separator.length;
+    let sepLen = separator ? separator.length : 0;
+
+    if (separator === "") {
+        for (let i = 0; i < arg.length; i++) {
+            result.push(arg[i]);
+        }
+        return result;
+    } else if (separator === null) {
+        separator = ",";
+        sepLen = 1;
+    }
+
     for (let i = 0; i < arg.length; i++) {
         if (arg.slice(i, i + sepLen) === separator) {
             result.push(subStr);
             subStr = "";
-            i += sepLen - 1; // Skip the separator length
+            i += sepLen - 1;
         } else {
             subStr += arg[i];
         }
     }
-    result.push(subStr); // Push the last substring
+    result.push(subStr);
     return result;
 }
 
