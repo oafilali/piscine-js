@@ -1,18 +1,10 @@
-const pyramid = (str, num) => {
-    let result = "";
-    for (let i = 1; i <= num; i++) {
-        for (let j = 0; j < num - i; j++) {
-            result += " ";
-        }
-        for (let k = 0; k < 2 * i - 1; k++) {
-            result += str;
-        }
-        if (i !== num) {
-            result += "\n";
-        }
+function pyramid(char, n) {
+    let str = "";
+    let spaces = " ".repeat(char.length);
+    for (var i = 1; i <= n; i++) {
+        str = str + spaces.repeat(n - i) + char.repeat(2 * i - 1) + "\n";
     }
-    return result;
+    return str.slice(0, -1);
 }
-
-console.log(pyramid("*", 5));
+console.log(pyramid("{}", 12));
 
