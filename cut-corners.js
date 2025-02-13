@@ -15,26 +15,21 @@ const modulo = (a, b) => {
 }
 
 const trunc = (num) => {
-    return  num - (num - (modulo(num, 1)))
+    return num - modulo(num, 1);
 }
 
 const round = (num) => {
-    let rounded = num + 0.5
-    let trunced = trunc(rounded)
-    let truncedNum = trunc(num)
-    if (trunced === truncedNum) {
-        return truncedNum
-    }
-    return truncedNum + 1
+    let rounded = num + (num < 0 ? -0.5 : 0.5);
+    return trunc(rounded);
 }
 
 const ceil = (num) => {
     if (trunc(num) === num) {
-        return num
+        return num;
     }
-    return trunc(num) + 1
+    return trunc(num) + 1;
 }
 
 const floor = (num) => {
-    return trunc(num)
+    return trunc(num);
 }
