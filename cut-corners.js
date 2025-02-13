@@ -24,10 +24,8 @@ const round = (num) => {
 }
 
 const ceil = (num) => {
-    if (trunc(num) === num) {
-        return num;
-    }
-    return trunc(num) + 1;
+    const int = trunc(num);
+    return int < num ? int + 1 : int;
 }
 
 const floor = (num) => {
