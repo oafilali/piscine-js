@@ -11,8 +11,11 @@ const chunk = (arr, size) => {
             counter = 0
         }
     }
-    newArr.push(subArrs)
+    if (subArrs.length > 0) {
+        newArr.push(subArrs)
+    }
     return newArr
 }
 
 console.log(chunk(['a', 'b', 'c', 'd'], 3))
+console.log(chunk(['a', 'b', 'c', 'd'], 2))
