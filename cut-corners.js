@@ -1,13 +1,12 @@
 const modulo = (a, b) => {
+    if (b === 0) return NaN;
     let result = a;
+    const absB = b < 0 ? -b : b;
     if (a < 0) {
         result = -a;
     }
-    if (b < 0) {
-        b = -b;
-    }
-    while (result >= b) {
-        result -= b;
+    while (result >= absB) {
+        result -= absB;
     }
     return a < 0 ? -result : result;
 }
