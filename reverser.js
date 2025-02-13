@@ -1,7 +1,7 @@
 const reverse = (arr) => {
     let reservedArr = []
-    for (let i = arr.length; i >= 0; i--) {
+    for (let i = arr.length - 1; i >= 0; i--) {
         reservedArr.push(arr[i])
     }
-    return arr
+    return reservedArr
 }
