@@ -1,9 +1,7 @@
 const modulo = (a, b) => {
-    let sign = 0;
     let result = a;
     if (a < 0) {
         result = -a;
-        sign++;
     }
     if (b < 0) {
         b = -b;
@@ -11,7 +9,7 @@ const modulo = (a, b) => {
     while (result >= b) {
         result -= b;
     }
-    return sign == 1 ? -result : result;
+    return a < 0 ? -result : result;
 }
 
 const trunc = (num) => {
