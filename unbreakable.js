@@ -1,25 +1,27 @@
 const split = (arg, separator) => {
-    let subStr = ""
-    let result = []
+    let subStr = "";
+    let result = [];
+    let sepLen = separator.length;
     for (let i = 0; i < arg.length; i++) {
-        if (arg[i] !== separator) {
-            subStr += arg[i]
-        } else {
+        if (arg.slice(i, i + sepLen) === separator) {
             result.push(subStr);
             subStr = "";
+            i += sepLen - 1;
+        } else {
+            subStr += arg[i];
         }
     }
-    result.push(subStr)
-    return result
+    result.push(subStr);
+    return result;
 }
 
 const join = (arg, joiner) => {
-    let result = ""
+    let result = "";
     for (let i = 0; i < arg.length; i++) {
-        result += arg[i]
-        if (i < arg.length -1) {
-            result += joiner
+        result += arg[i];
+        if (i < arg.length - 1) {
+            result += joiner;
         }
     }
-    return result
+    return result;
 }
