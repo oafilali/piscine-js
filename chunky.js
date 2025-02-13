@@ -11,7 +11,8 @@ const chunk = (arr, size) => {
             counter = 0
         }
     }
+    newArr.push(subArrs)
     return newArr
 }
 
-console.log(chunk([1, 2, 3, 4, 5, 6], 2))
+console.log(chunk(['a', 'b', 'c', 'd'], 3))
