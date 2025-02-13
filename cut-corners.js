@@ -1,29 +1,64 @@
-const modulo = (a, b) => {
-    if (b === 0) return NaN;
-    const absA = a < 0 ? -a : a;
-    const absB = b < 0 ? -b : b;
-    let result = absA;
-    while (result >= absB) {
-        result -= absB;
-    }
-    return a < 0 ? -result : result;
-}
-
 const trunc = (num) => {
-    return num - modulo(num, 1);
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num = -num;
+    }
+    let intCopy = num;
+    let counter = 0;
+    while (intCopy >= 1) {
+        intCopy -= 1;
+        counter++;
+    }
+    return neg ? -counter : counter;
 }
 
 const round = (num) => {
-    let rounded = num + (num < 0 ? -0.5 : 0.5);
-    return trunc(rounded);
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num = -num;
+    }
+    let intCopy = num;
+    let counter = 0;
+    while (intCopy >= 1) {
+        intCopy -= 1;
+        counter++;
+    }
+    if (intCopy < 0.5) {
+        return neg ? -counter : counter;
+    } else {
+        return neg ? -counter - 1 : counter + 1;
+    }
 }
 
 const ceil = (num) => {
-    const int = trunc(num);
-    return int < num ? int + 1 : int;
+    if (num === 0) return 0;
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num = -num;
+    }
+    let intCopy = num;
+    let counter = 0;
+    while (intCopy >= 1) {
+        intCopy -= 1;
+        counter++;
+    }
+    return neg ? -counter : counter + 1;
 }
 
 const floor = (num) => {
-    const int = trunc(num);
-    return int > num ? int - 1 : int;
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num = -num;
+    }
+    let intCopy = num;
+    let counter = 0;
+    while (intCopy >= 1) {
+        intCopy -= 1;
+        counter++;
+    }
+    return neg ? -counter - 1 : counter;
 }
