@@ -31,5 +31,6 @@ const ceil = (num) => {
 }
 
 const floor = (num) => {
-    return trunc(num);
+    const int = trunc(num);
+    return int > num ? int - 1 : int;
 }
