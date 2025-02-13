@@ -29,3 +29,5 @@ const DNA = (str) => {
     }
     return result
 }
+
+console.log(DNA("CGAU"))
