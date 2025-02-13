@@ -1,10 +1,8 @@
 const modulo = (a, b) => {
     if (b === 0) return NaN;
-    let result = a;
+    const absA = a < 0 ? -a : a;
     const absB = b < 0 ? -b : b;
-    if (a < 0) {
-        result = -a;
-    }
+    let result = absA;
     while (result >= absB) {
         result -= absB;
     }
