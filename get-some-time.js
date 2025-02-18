@@ -1,22 +1,40 @@
-function firstDayWeek(week, year) {
-    const firstDay = new Date(year, 0, 1);
-    const dayOfWeek = firstDay.getDay();
-    const diff = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
-    firstDay.setDate(firstDay.getDate() - diff);
-
-    // If the first Monday is in the previous year, return the first day of the given year
-    if (firstDay.getFullYear() < year) {
-        firstDay.setFullYear(year, 0, 1);
-        firstDay.setDate(1);  // Set to the 1st of January
+function firstDayWeek(week,year){
+    let time = new Date(year)
+    if(week === 1){
+        time.setHours(24)
+        return formattedDate(time) 
     }
-
-    firstDay.setDate(firstDay.getDate() + (week - 1) * 7);
-
-    const day = String(firstDay.getDate()).padStart(2, '0');
-    const month = String(firstDay.getMonth() + 1).padStart(2, '0');
-    const yearFormatted = firstDay.getFullYear();
-
-    return `${day}-${month}-${yearFormatted}`;
-}
-
-console.log(firstDayWeek(1, "1000")); // Should return '01-01-1000'
+    let dayPlus = week*7*24
+    time.setHours(dayPlus-123)
+    console.log(time)
+        function getWeekDay(date) {
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return days[date.getDay()-1];
+        }
+        function formattedDate(d) {
+            let month = String(d.getMonth() + 1);
+            let day = String(d.getDate()-1);
+            let year = String(d.getFullYear());
+            
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            if (year.length === 1) year = '000' + year;
+            if (year.length === 2) year = '00' + year;
+            if (year.length === 3) year = '0' + year; 
+            
+            
+            return `${day}-${month}-${year}`;
+        }
+        for(let i = 0;i<7;i++){
+            let today = getWeekDay(time)
+            if(today === 'Monday'){
+                let res = formattedDate(time)
+                return res
+            }
+            time.setHours(-24)    
+        }
+        return time
+    }
+    // let date = new Date('0091-06-04')
+    // console.log(date.getDay())
+    // console.log(firstDayWeek(1, '1000'))
