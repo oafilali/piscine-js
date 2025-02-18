@@ -4,8 +4,10 @@ function firstDayWeek(week, year) {
     const diff = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
     firstDay.setDate(firstDay.getDate() - diff);
 
+    // If the first Monday is in the previous year, return the first day of the given year
     if (firstDay.getFullYear() < year) {
-        firstDay.setFullYear(year);
+        firstDay.setFullYear(year, 0, 1);
+        firstDay.setDate(1);  // Set to the 1st of January
     }
 
     firstDay.setDate(firstDay.getDate() + (week - 1) * 7);
