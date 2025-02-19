@@ -22,14 +22,20 @@ const fahrenheitToCelsius = (arr) => {
 
 const trimTemp = (arr) => {
     return arr.map( obj => {
-        obj.temperature = obj.temperature.trim()
+        obj.temperature = obj.temperature.replaceAll(" ", "")
         return obj
     })
 }
 
 const tempForecasts = (arr) => {
-    return arr.map( x => {
-        let result = fahrenheitToCelsius(x.temperature) + "in" + x.city + ", " + x.state
-        return x
-    })    
-}
+    return arr.map((item) => {
+      return `${
+        Math.floor(
+          (Number(item.temperature.trim().slice(0, -2)) - 32) * (5 / 9)
+        ).toString() + "°Celsius"
+      } in ${item.city.charAt(0).toUpperCase() + item.city.slice(1)}, ${item.state
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")}`;
+    });
+  }
