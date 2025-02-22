@@ -33,7 +33,7 @@ export function explore() {
   directionIndicator.textContent = "N";
   document.body.appendChild(directionIndicator);
 
-  let lastScrollY = window.scrollY; // needs to be let since it updates on scroll
+  let lastScrollY = window.scrollY;
 
   window.addEventListener("scroll", () => {
     const index = Math.floor((window.scrollY + window.innerHeight / 2) / window.innerHeight);
@@ -57,5 +57,6 @@ const updateLocationIndicator = (place, element) => {
   element.target = "_blank";
 };
 
-const formatName = name => 
-  name.toLowerCase().replace(/,/g, '').replace(/\s+/g, '-');
+// Format the name by converting to lowercase and replacing spaces with hyphens.
+// This preserves punctuation (e.g. commas) so that "Cordoba, Spain" becomes "cordoba,-spain".
+const formatName = name => name.toLowerCase().replace(/\s+/g, '-');
