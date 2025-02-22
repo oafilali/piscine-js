@@ -1,52 +1,73 @@
-let lastCircle = null;
+const circles = [];
+let box;
 
-export const createCircle = (event) => {
-    const circle = document.createElement('div');
-    circle.className = 'circle';
-    circle.style.backgroundColor = 'white';
-    circle.style.position = 'absolute';
-    circle.style.left = `${event.clientX}px`;
-    circle.style.top = `${event.clientY}px`;
-    document.body.appendChild(circle);
-    lastCircle = circle;
-};
-
-export const moveCircle = (event) => {
-    if (lastCircle) {
-        lastCircle.style.left = `${event.clientX}px`;
-        lastCircle.style.top = `${event.clientY}px`;
-        checkIfInsideBox(lastCircle);
+class Circle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.diameter = 50;
+        this.isTrapped = false;
+        this.HTML = document.createElement("div");
+        this.HTML.classList.add("circle");
+        this.HTML.style.position = "absolute";
+        this.HTML.style.left = `${this.x}px`;
+        this.HTML.style.top = `${this.y}px`;
+        this.HTML.style.background = "white";
+        document.body.appendChild(this.HTML);
+        circles.push(this);
     }
-};
 
-export const setBox = () => {
-    const box = document.createElement('div');
-    box.className = 'box';
-    box.style.position = 'absolute';
-    box.style.left = '50%';
-    box.style.top = '50%';
-    box.style.transform = 'translate(-50%, -50%)';
-    document.body.appendChild(box);
-};
-
-const checkIfInsideBox = (circle) => {
-    const box = document.querySelector('.box');
-    if (!box) return;
-
-    const boxRect = box.getBoundingClientRect();
-    const circleRect = circle.getBoundingClientRect();
-
-    if (
-        circleRect.left >= boxRect.left + 1 &&
-        circleRect.right <= boxRect.right - 1 &&
-        circleRect.top >= boxRect.top + 1 &&
-        circleRect.bottom <= boxRect.bottom - 1
-    ) {
-        circle.style.backgroundColor = 'var(--purple)';
-        lastCircle = null; // Stop moving the circle once it's inside the box
+    move(x, y) {
+        if (!this.isTrapped) {
+            this.x = x;
+            this.y = y;
+            this.HTML.style.left = `${this.x}px`;
+            this.HTML.style.top = `${this.y}px`;
+            this.trapped();
+        }
     }
+
+    trapped() {
+        if (
+            this.x > box.x &&
+            this.x + this.diameter < box.x + box.width &&
+            this.y > box.y &&
+            this.y + this.diameter < box.y + box.height
+        ) {
+            this.isTrapped = true;
+            this.HTML.style.background = "var(--purple)";
+        }
+    }
+}
+
+class Box {
+    constructor() {
+        this.HTML = document.createElement("div");
+        this.HTML.classList.add("box");
+        this.HTML.style.position = "absolute";
+        this.HTML.style.top = "50%";
+        this.HTML.style.left = "50%";
+        this.HTML.style.transform = "translate(-50%, -50%)";
+        document.body.appendChild(this.HTML);
+        this.x = this.HTML.offsetLeft - this.HTML.offsetWidth / 2 - 1;
+        this.y = this.HTML.offsetTop - this.HTML.offsetHeight / 2 - 1;
+        this.width = this.HTML.offsetWidth + 1;
+        this.height = this.HTML.offsetHeight + 1;
+    }
+}
+
+document.body.addEventListener("click", (e) => {
+    new Circle(e.clientX - 25, e.clientY - 25);
+});
+
+document.body.addEventListener("mousemove", (e) => {
+    if (circles.length > 0) {
+        circles[circles.length - 1].move(e.clientX - 25, e.clientY - 25);
+    }
+});
+
+const setBox = () => {
+    box = new Box();
 };
 
-document.addEventListener('click', createCircle);
-document.addEventListener('mousemove', moveCircle);
-document.addEventListener('DOMContentLoaded', setBox);
+export { setBox };
