@@ -57,12 +57,12 @@ class Box {
 }
 
 document.body.addEventListener("click", (e) => {
-    new Circle(e.clientX - 25, e.clientY - 25);
+    new Circle(e.clientX - 25, e.clientY - 25); // Adjust for circle center
 });
 
 document.body.addEventListener("mousemove", (e) => {
     if (circles.length > 0) {
-        circles[circles.length - 1].move(e.clientX - 25, e.clientY - 25);
+        circles[circles.length - 1].move(e.clientX - 25, e.clientY - 25); // Adjust for circle center
     }
 });
 
@@ -70,4 +70,4 @@ const setBox = () => {
     box = new Box();
 };
 
-export { setBox };
+export { setBox, circles };
