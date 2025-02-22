@@ -1,27 +1,23 @@
-const styles = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+import { styles } from "./pimp-my-style.data.js";
 
-let index = 0;
-let adding = true;
+let counter = 0;
 
 export const pimp = () => {
-    const button = document.querySelector('.button');
+    const button = document.querySelector("button.button");
 
-    if (adding) {
-        button.classList.remove('unpimp');
-        button.classList.add(styles[index]);
-        index++;
-        if (index === styles.length) {
-            adding = false;
-            button.classList.add('unpimp');
-        }
+    if (!button.classList.contains("unpimp")) {
+        button.classList.add(styles[counter]);
+        counter++;
     } else {
-        button.classList.add('unpimp');
-        index--;
-        button.classList.remove(styles[index]);
-        if (index === 0) {
-            adding = true;
-            button.classList.remove('unpimp');
+        counter--;
+        button.classList.remove(styles[counter]);
+        if (counter === 0) {
+            button.classList.toggle("unpimp");
         }
+    }
+
+    if (counter === styles.length) {
+        button.classList.toggle("unpimp");
     }
 };
 
