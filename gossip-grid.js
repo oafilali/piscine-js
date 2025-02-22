@@ -1,11 +1,10 @@
 import { gossips } from "./gossip-grid.data.js";
 
 export function grid() {
-  // Create range controls container
+  // --- Create Range Controls ---
   const rangesDiv = document.createElement("div");
   rangesDiv.className = "ranges";
 
-  // Create range inputs
   const widthInput = createRange("width", 200, 800, 500);
   const fontSizeInput = createRange("fontSize", 20, 40, 30);
   const backgroundInput = createRange("background", 20, 75, 50);
@@ -13,12 +12,12 @@ export function grid() {
   rangesDiv.append(widthInput, fontSizeInput, backgroundInput);
   document.body.appendChild(rangesDiv);
 
-  // Create gossip grid container
+  // --- Create the Gossip Grid Container ---
   const gridContainer = document.createElement("div");
   gridContainer.className = "gossip-grid";
   document.body.appendChild(gridContainer);
 
-  // Create the first gossip card as a form
+  // --- Create the First Gossip Card as a Form ---
   const form = document.createElement("form");
   form.className = "gossip";
   const textarea = document.createElement("textarea");
@@ -28,8 +27,8 @@ export function grid() {
   form.append(textarea, submitBtn);
   gridContainer.appendChild(form);
 
-  // On form submission, add a new gossip card
-  form.addEventListener("submit", e => {
+  // When the form is submitted, add a new gossip card (inserted at the beginning of the list of divs)
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = textarea.value.trim();
     if (text !== "") {
@@ -38,28 +37,39 @@ export function grid() {
     }
   });
 
-  // Display provided gossips
-  gossips.forEach(text => addGossip(text));
+  // --- Display the Provided Gossips ---
+  gossips.forEach((text) => {
+    addGossip(text);
+  });
 
-  // Helper: Add a gossip card and apply current styles
+  // --- Helper: Create and Insert a Gossip Card ---
   function addGossip(text) {
     const card = document.createElement("div");
     card.className = "gossip";
     card.textContent = text;
-    gridContainer.appendChild(card);
     updateCardStyle(card);
+    // Insert new gossip card before the first existing div.gossip (if any)
+    const firstGossipDiv = gridContainer.querySelector("div.gossip");
+    if (firstGossipDiv) {
+      gridContainer.insertBefore(card, firstGossipDiv);
+    } else {
+      gridContainer.appendChild(card);
+    }
   }
 
-  // Helper: Update the style of a card based on range inputs
+  // --- Helper: Update the Style of a Gossip Card ---
   function updateCardStyle(card) {
     card.style.width = widthInput.value + "px";
     card.style.fontSize = fontSizeInput.value + "px";
     card.style.backgroundColor = `hsl(200, 50%, ${backgroundInput.value}%)`;
   }
 
-  // Update styles for all cards when any range input changes
+  // --- Update Styles on Range Changes ---
   function updateAllCards() {
-    document.querySelectorAll(".gossip").forEach(card => updateCardStyle(card));
+    // Only update the style of div elements (exclude the form)
+    gridContainer.querySelectorAll("div.gossip").forEach((card) => {
+      updateCardStyle(card);
+    });
   }
 
   widthInput.addEventListener("input", updateAllCards);
@@ -67,7 +77,7 @@ export function grid() {
   backgroundInput.addEventListener("input", updateAllCards);
 }
 
-// Helper to create a range input element
+// --- Helper: Create a Range Input ---
 function createRange(id, min, max, value) {
   const input = document.createElement("input");
   input.type = "range";
