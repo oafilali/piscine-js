@@ -1,35 +1,29 @@
-import { colors } from './fifty-shades-of-cold.data.js';
+import { colors } from "./fifty-shades-of-cold.data.js";
 
 export const generateClasses = () => {
-    const styleTag = document.createElement('style');
-    document.head.appendChild(styleTag);
-
-    let stylesContent = '';
-    colors.forEach(color => {
-        stylesContent += `.${color} { background: ${color}; }\n`;
+    const head = document.getElementsByTagName("head")[0];
+    const style = document.createElement("style");
+    colors.forEach((color) => {
+        style.innerHTML += `.${color} {\n  background: ${color};\n }\n\n`;
     });
-    styleTag.textContent = stylesContent;
+    head.appendChild(style);
 };
 
 export const generateColdShades = () => {
-    const coldKeywords = ['aqua', 'blue', 'turquoise', 'green', 'cyan', 'navy', 'purple'];
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-
-    colors.forEach(color => {
-        if (coldKeywords.some(keyword => color.includes(keyword))) {
-            const div = document.createElement('div');
-            div.className = color;
-            div.textContent = color;
+    const body = document.getElementsByTagName("body")[0];
+    colors.forEach((color) => {
+        if (color.match(/(aqua|blue|turquoise|green|cyan|navy|purple)/) !== null) {
+            const div = document.createElement("div");
+            div.classList.add(color);
+            div.innerHTML = color;
             div.addEventListener('click', () => choseShade(color));
-            container.appendChild(div);
+            body.appendChild(div);
         }
     });
 };
 
 export const choseShade = (shade) => {
-    const divs = document.querySelectorAll('div');
-    divs.forEach(div => {
+    document.querySelectorAll("div").forEach((div) => {
         div.className = shade;
     });
 };
