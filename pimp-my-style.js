@@ -1,4 +1,4 @@
-const styles = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+import { styles } from './pimp-my-style.data.js';
 
 let index = 0;
 let adding = true;
