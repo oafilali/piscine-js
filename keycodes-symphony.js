@@ -1,19 +1,11 @@
 function compose(event) {
-    if (event === undefined) {
-        return;
-    }
-
     const container = document.querySelector('.container');
 
-    if ([...Array(26).keys()].map((i) => i + 97).includes(event.key.charCodeAt(0))) {
+    if (event.key >= 'a' && event.key <= 'z') {
         const div = document.createElement("div");
         div.classList.add("note");
-        div.style.backgroundColor = `rgb(${
-            (255 / 26) * (event.key.charCodeAt(0) - 97)
-        }, ${(255 / 26) * (event.key.charCodeAt(0) - 97)}, ${
-            (255 / 26) * (event.key.charCodeAt(0) - 97)
-        })`;
-        div.innerHTML = event.key;
+        div.style.backgroundColor = `#${event.key.charCodeAt(0).toString(16)}`;
+        div.textContent = event.key;
         container.appendChild(div);
     } else if (event.key === "Backspace") {
         const notes = document.getElementsByClassName("note");
