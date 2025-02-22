@@ -21,11 +21,10 @@ export function explore() {
   locationIndicator.style.top = "50%";
   locationIndicator.style.left = "50%";
   locationIndicator.style.transform = "translate(-50%, -50%)";
-  // Initialize with the first place
   updateLocationIndicator(sortedPlaces[0], locationIndicator);
   document.body.appendChild(locationIndicator);
 
-  // Create the compass indicator <div>
+  // Create the compass indicator <div> tag
   const directionIndicator = document.createElement("div");
   directionIndicator.className = "direction";
   directionIndicator.style.position = "fixed";
@@ -34,16 +33,13 @@ export function explore() {
   directionIndicator.textContent = "N";
   document.body.appendChild(directionIndicator);
 
-  let lastScrollY = window.scrollY;
-  
-  // Update indicators on scroll
+  let lastScrollY = window.scrollY; // needs to be let since it updates on scroll
+
   window.addEventListener("scroll", () => {
-    // Calculate which section is at the middle of the viewport
     const index = Math.floor((window.scrollY + window.innerHeight / 2) / window.innerHeight);
     const currentPlace = sortedPlaces[index] || sortedPlaces[sortedPlaces.length - 1];
     updateLocationIndicator(currentPlace, locationIndicator);
 
-    // Update compass direction based on scroll direction
     const currentScrollY = window.scrollY;
     if (currentScrollY < lastScrollY) {
       directionIndicator.textContent = "N";
@@ -54,15 +50,12 @@ export function explore() {
   });
 }
 
-// Update the location indicator with the current place data
-function updateLocationIndicator(place, element) {
+const updateLocationIndicator = (place, element) => {
   element.textContent = `${place.name}\n${place.latitude}, ${place.longitude}`;
   element.style.color = place.color;
   element.href = `https://www.google.com/maps?q=${place.latitude},${place.longitude}`;
   element.target = "_blank";
-}
+};
 
-// Format the place name to match the image file naming convention
-function formatName(name) {
-  return name.toLowerCase().replace(/\s+/g, '-');
-}
+const formatName = name => 
+  name.toLowerCase().replace(/,/g, '').replace(/\s+/g, '-');
