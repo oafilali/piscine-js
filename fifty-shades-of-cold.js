@@ -4,9 +4,11 @@ export const generateClasses = () => {
     const styleTag = document.createElement('style');
     document.head.appendChild(styleTag);
 
+    let stylesContent = '';
     colors.forEach(color => {
-        styleTag.sheet.insertRule(`.${color} { background: ${color}; }`, styleTag.sheet.cssRules.length);
+        stylesContent += `.${color} { background: ${color}; }\n`;
     });
+    styleTag.textContent = stylesContent;
 };
 
 export const generateColdShades = () => {
