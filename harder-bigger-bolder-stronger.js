@@ -1,7 +1,5 @@
 export const generateLetters = () => {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const container = document.createElement('div');
-    document.body.appendChild(container);
 
     for (let i = 0; i < 120; i++) {
         const letterDiv = document.createElement('div');
@@ -17,6 +15,6 @@ export const generateLetters = () => {
             letterDiv.style.fontWeight = '600';
         }
 
-        container.appendChild(letterDiv);
+        document.body.appendChild(letterDiv);
     }
 };
