@@ -1,4 +1,4 @@
-const styles = ["style1", "style2", "style3", "style4", "style5", "style6", "style7", "style8", "style9", "style10"];
+const styles = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
 let index = 0;
 let adding = true;
