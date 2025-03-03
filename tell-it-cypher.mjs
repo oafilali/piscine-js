@@ -2,14 +2,22 @@ import buffer from "buffer"
 import fs from "fs/promises"
 
 async function cypher() {
-    let args = process.argv.slice(2, 4)
+    let args = process.argv.slice(2, 5)
     let data = await fileReader(args[0])
     if (args[1] === "encode") {
         let encoded = Buffer.from(data).toString("base64")
-        await fileWriter("cypher.txt", encoded)
+        if (args.length === 3) {
+            await fileWriter(`${args[2]}`, encoded)
+        } else {
+            await fileWriter("cypher.txt", encoded)
+        }
     } else if (args[1] === "decode") {
         let decoded = Buffer.from(data, "base64").toString("utf8")
-        await fileWriter("clear.txt", decoded)
+        if (args.length === 3) {
+            await fileWriter(`${args[2]}`, decoded)
+        } else {
+            await fileWriter("clear.txt", decoded)
+        }
     } else {
         console.log(`${args[1]} is not a supported option ...`)
     }
