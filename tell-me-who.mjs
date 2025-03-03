@@ -10,8 +10,7 @@ async function tellMeWho() {
     let result = ""
     let counter = 1
     for (let i = 0; i < guests.length; i++) {
-        result += `${counter}. ${guests[i][1]} ${guests[i][0]} \n`
-        result.trim()
+        result += `${counter}. ${guests[i][1]} ${guests[i][0]}\n`
         counter++
     }
     return result
