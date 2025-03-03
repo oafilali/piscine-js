@@ -1,5 +1,5 @@
 
-function verydisco () {
+export function verydisco () {
     const args = process.argv.slice(2, 3)
     let sanitisedArgs = []
     args.forEach(Element => {
