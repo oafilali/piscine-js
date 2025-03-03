@@ -1,10 +1,11 @@
 import fs from "fs/promises"
 
 async function tellMeWho() {
+    let args = process.argv.slice(2, 3)
     let file = await howMany()
     let vipGuests = []
     for (const element of file) {
-        let data = await fileReader(`./guests/${element}`)
+        let data = await fileReader(`${args[0]}/${element}`)
         let obj = JSON.parse(data)
         if (obj.answer.toLowerCase() === "yes") {
             vipGuests.push(element)
@@ -22,6 +23,7 @@ async function tellMeWho() {
         result += `${counter}. ${guests[i][1]} ${guests[i][0]}\n`
         counter++
     }
+    fileWriter(result.trim())
     return result
 }
 
@@ -48,6 +50,15 @@ async function fileReader(file) {
         console.error("Error reading file:", error)
     }
     return data
+}
+
+async function fileWriter(content) {
+    try {
+        await fs.writeFile("./vip.txt", content)
+        console.log("File written successfully")
+    } catch (error) {
+        console.error("Error writing file:", error)
+    }
 }
 
 console.log(await tellMeWho())
