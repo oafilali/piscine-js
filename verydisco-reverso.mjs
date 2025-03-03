@@ -5,7 +5,7 @@ const args = process.argv.slice(2, 3)
 async function verydiscoReverse() {
     let data = ""
     try {
-        data = await fs.readFile(`./${args}`, "utf8")
+        data = await fs.readFile(`${args}`, "utf8")
         console.log("File read successfully")
     } catch (error) {
         console.error("Error reading file:", error)
