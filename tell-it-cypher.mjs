@@ -36,7 +36,6 @@ async function fileReader(file) {
 async function fileWriter(fileName, content) {
     try {
         await fs.writeFile(`./${fileName}`, content)
-        console.log("File written successfully")
     } catch (error) {
         console.error("Error writing file:", error)
     }
