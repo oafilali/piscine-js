@@ -72,7 +72,7 @@ async function requestHandler(req, res) {
 async function fileWriter(fileName, content) {
     let err = null
     try {
-        await fs.writeFile(`./guests/${fileName}.json`, content)
+        await fs.writeFile(`${fileName}.json`, content)
         console.log("File created succefully")
     } catch (error) {
         console.error("Error writing file:", error)
