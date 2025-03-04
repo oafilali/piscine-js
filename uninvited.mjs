@@ -24,11 +24,16 @@ async function requestHandler(req, res) {
             req.on("end", async () => {
                 console.log("Recieved data", body)
                 res.writeHead(201, { "Content-Type": "application/json" })
-                await fileWriter(`${guestName[guestName.length - 1]}`, body)
+                let err = await fileWriter(`${guestName[guestName.length - 1]}`, body)
+                if (err) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' })
+                    res.end(JSON.stringify(serverFailure))
+                }
+                res.end(body)
             })
         } else {
-            res.writeHead(405, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "Method not allowed" }));
+            res.writeHead(405, { "Content-Type": "application/json" })
+            res.end(JSON.stringify({ error: "Method not allowed" }))
         }
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' })
@@ -37,12 +42,15 @@ async function requestHandler(req, res) {
 }
 
 async function fileWriter(fileName, content) {
+    let err = null
     try {
         await fs.writeFile(`./guests/${fileName}.json`, content)
         console.log("File created succefully")
     } catch (error) {
         console.error("Error writing file:", error)
+        err = error
     }
+    return err
 }
 
 startServer()
