@@ -71,10 +71,8 @@ async function requestHandler(req, res) {
 
 async function fileWriter(fileName, content) {
     let err = null
-    const dirPath = join(__dirname, 'guests')
     try {
-        await fs.mkdir(dirPath, { recursive: true })
-        await fs.writeFile(join(dirPath, `${fileName}.json`), content)
+        await fs.writeFile(`${fileName}`, content)
         console.log("File created succefully")
     } catch (error) {
         console.error("Error writing file:", error)
