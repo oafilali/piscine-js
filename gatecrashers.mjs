@@ -1,11 +1,10 @@
 import http from "http"
 import fs from "fs/promises"
-import { dirname } from 'path'
 
 const server = http.createServer(requestHandler)
 
 const serverFailure = {
-    error : "server failed"
+    error: "server failed"
 }
 
 const bestFriends = ["Caleb_Squires", "Tyrique_Dalton", "Rahima_Young"]
@@ -32,7 +31,8 @@ async function requestHandler(req, res) {
                 res.end("Unauthorized")
                 return
             }
-            const [user, pass] = credentials.split(":")
+            const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf8')
+            const [user, pass] = decodedCredentials.split(":")
             let guestName = req.url.split("/")
             let isMatch = false
             for (let friend of bestFriends) {
@@ -42,15 +42,21 @@ async function requestHandler(req, res) {
                         body += chunk.toString()
                     })
                     req.on("end", async () => {
-                        console.log("Recieved data", body)
-                        res.writeHead(201, { "Content-Type": "application/json" })
-                        let err = await fileWriter(`${guestName[guestName.length - 1]}`, body)
-                        if (err) {
-                            res.writeHead(500, { 'Content-Type': 'application/json' })
-                            res.end(JSON.stringify(serverFailure))
+                        console.log("Body received:", body)
+                        try {
+                            const parsedBody = JSON.parse(body)
+                            let err = await fileWriter(`${guestName[guestName.length - 1]}`, JSON.stringify(parsedBody))
+                            if (err) {
+                                res.writeHead(500, { 'Content-Type': 'application/json' })
+                                res.end(JSON.stringify(serverFailure))
+                                return
+                            }
+                            res.writeHead(200, { "Content-Type": "application/json" })
+                            res.end(JSON.stringify(parsedBody))
+                        } catch (error) {
+                            res.writeHead(400, { 'Content-Type': 'application/json' })
+                            res.end(JSON.stringify({ error: 'Invalid JSON format' }))
                         }
-                        res.end(body)
-                        return
                     })
                     isMatch = true
                     break
@@ -73,9 +79,8 @@ async function requestHandler(req, res) {
 async function fileWriter(fileName, content) {
     let err = null
     try {
-        await fs.mkdir(dirname(fileName), { recursive: true })
-        await fs.writeFile(fileName, content)
-        console.log("File created succefully")
+        await fs.writeFile(`guests/${fileName}.json`, content)
+        console.log("File created successfully")
     } catch (error) {
         console.error("Error writing file:", error)
         err = error
