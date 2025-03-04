@@ -42,9 +42,9 @@ async function requestHandler(req, res) {
                         body += chunk.toString()
                     })
                     req.on("end", async () => {
-                        console.log("Body received:", body)
+                        console.log("Body received:", req.headers.body)
                         try {
-                            const parsedBody = JSON.parse(body)
+                            const parsedBody = JSON.parse(req.headers.body)
                             let err = await fileWriter(`${guestName[guestName.length - 1]}`, JSON.stringify(parsedBody))
                             if (err) {
                                 res.writeHead(500, { 'Content-Type': 'application/json' })
