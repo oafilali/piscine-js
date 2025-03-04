@@ -1,5 +1,6 @@
 import http from "http"
 import fs from "fs/promises"
+import { dirname } from 'path'
 
 const server = http.createServer(requestHandler)
 
@@ -72,7 +73,8 @@ async function requestHandler(req, res) {
 async function fileWriter(fileName, content) {
     let err = null
     try {
-        await fs.writeFile(`${fileName}`, content)
+        await fs.mkdir(dirname(fileName), { recursive: true })
+        await fs.writeFile(fileName, content)
         console.log("File created succefully")
     } catch (error) {
         console.error("Error writing file:", error)
