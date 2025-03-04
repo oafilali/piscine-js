@@ -33,8 +33,8 @@ async function requestHandler(req, res) {
             }
             const [user, pass] = credentials.split(":")
             let guestName = req.url.split("/")
+            let isMatch = false
             for (let friend of bestFriends) {
-                let isMatch = false
                 if (friend === user && pass === password) {
                     let body = ""
                     req.on("data", chunk => {
@@ -71,8 +71,10 @@ async function requestHandler(req, res) {
 
 async function fileWriter(fileName, content) {
     let err = null
+    const dirPath = join(__dirname, 'guests')
     try {
-        await fs.writeFile(`${fileName}.json`, content)
+        await fs.mkdir(dirPath, { recursive: true })
+        await fs.writeFile(join(dirPath, `${fileName}.json`), content)
         console.log("File created succefully")
     } catch (error) {
         console.error("Error writing file:", error)
