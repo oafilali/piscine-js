@@ -34,6 +34,7 @@ async function requestHandler(req, res) {
             const [user, pass] = credentials.split(":")
             let guestName = req.url.split("/")
             for (let friend of bestFriends) {
+                let isMatch = false
                 if (friend === user && pass === password) {
                     let body = ""
                     req.on("data", chunk => {
@@ -48,11 +49,15 @@ async function requestHandler(req, res) {
                             res.end(JSON.stringify(serverFailure))
                         }
                         res.end(body)
+                        return
                     })
-                } else {
-                    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Secure Area"' })
-                    res.end("Unauthorized")
+                    isMatch = true
+                    break
                 }
+            }
+            if (!isMatch) {
+                res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Secure Area"' })
+                res.end("Unauthorized")
             }
         } else {
             res.writeHead(405, { "Content-Type": "application/json" })
